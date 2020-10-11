@@ -1,7 +1,8 @@
 import React, { useState } from "react";
 import { useForm } from "../hooks/useForm";
+import TextField from "@material-ui/core/TextField";
 
-const initialValue = {
+const initialValues = {
   firstName: "",
   lastName: "",
   address: "",
@@ -16,11 +17,7 @@ const initialValue = {
 
 const CheckoutForm = () => {
   const [showSuccessMessage, setShowSuccessMessage] = useState(false);
-  const [values, setValues] = useState(initialValue);
-
-  const handleChanges = (e) => {
-    setValues({ ...values, [e.target.name]: e.target.value });
-  };
+  const [values, handleChanges] = useForm("formValues", initialValues);
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -31,15 +28,14 @@ const CheckoutForm = () => {
     <>
       <form onSubmit={handleSubmit}>
         <h2>Checkout Form</h2>
-        <label>
-          First Name:
+        <label htmlFor = "firstName">First Name:</label>
           <input
             id = "firstName"
             name="firstName"
             value={values.firstName}
             onChange={handleChanges}
           />
-        </label>
+        
 
         <label>
           Last Name:

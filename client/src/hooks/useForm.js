@@ -1,16 +1,11 @@
 // write your custom hook here to control your checkout form
 import { useLocalStorage } from './useLocalStorage';
 
-export const useForm = ([]) => {
-    const [cart, setCart] = useLocalStorage("cartValue", []);
+export const useForm = (key, initialvalues) => {
+    const [values, setValues] = useLocalStorage(key, initialvalues);
 
-    const addToCart = (plant) => {
-        setCart([...cart, plant]);
-    };
-    
-    const removeFromCart = (plant) => {
-        setCart(cart.filter((p) => p.id !== plant.id));
-    };
-    
-    return [cart, addToCart, removeFromCart];
+    const handleChanges = (e) => {
+        setValues({ ...values, [e.target.name]: e.target.value });
+      };
+    return [values, handleChanges];
 }
